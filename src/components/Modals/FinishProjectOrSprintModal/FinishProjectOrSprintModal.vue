@@ -230,7 +230,7 @@ const FinishSprint = handleSubmit(async (values) => {
               v-tooltip="'Оценка - число вещественное от 0 до 10'"
             />
           </div>
-          <div class="w-75">Учасник</div>
+          <div class="w-75">Участник</div>
         </div>
 
         <div
