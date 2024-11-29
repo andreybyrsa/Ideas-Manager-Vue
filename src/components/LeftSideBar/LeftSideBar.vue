@@ -58,9 +58,8 @@ onMounted(() => {
   const intervalId = setInterval(async () => {
     const currentUser = user.value
     if (currentUser?.role && currentUser.token) {
-      await getActiveMarkets(currentUser?.role, currentUser.token).finally(() => {
-        clearInterval(intervalId)
-      })
+      clearInterval(intervalId)
+      await getActiveMarkets(currentUser?.role, currentUser.token)
     }
   }, 100)
 })
