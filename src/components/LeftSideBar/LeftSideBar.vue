@@ -54,7 +54,16 @@ const isHovered = useElementHover(leftSideBarRef, {
 })
 
 // Роутер биржи
-onMounted(getActiveMarkets)
+onMounted(() => {
+  const intervalId = setInterval(async () => {
+    const currentUser = user.value
+    if (currentUser?.role && currentUser.token) {
+      await getActiveMarkets(currentUser?.role, currentUser.token).finally(() => {
+        clearInterval(intervalId)
+      })
+    }
+  }, 100)
+})
 
 watch(
   () => markets.value,
@@ -90,18 +99,14 @@ function updateActiveMarketRoute(activeMarkets: Market[], index: number) {
   tabs.value[index].routes = [...initialMarketRoutes, ...marketRoutes]
 }
 
-async function getActiveMarkets() {
-  const currentUser = user.value
-  console.log(currentUser?.role)
-  console.log(currentUser?.token)
-  if (currentUser?.token && currentUser.role !== 'EXPERT') {
-    const { token } = currentUser
+async function getActiveMarkets(role: RolesTypes, token: string) {
+  if (role !== 'EXPERT') {
     const index = tabs.value.findIndex(({ name }) => name === 'markets')
 
     const spliceMarketsTab = () => {
       if (index !== -1) tabs.value.splice(index, 1)
     }
-    console.log(currentUser.role)
+    console.log(role)
     const response = await marketsStore.getAllActiveMarkets(token)
     console.log(response)
 
