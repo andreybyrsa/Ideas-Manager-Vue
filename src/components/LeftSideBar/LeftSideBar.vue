@@ -77,7 +77,6 @@ watch(
 )
 
 function updateActiveMarketRoute(activeMarkets: Market[], index: number) {
-  console.log(activeMarkets.length, index)
   const initialMarketRoutes: LeftSideBarTabType[] =
     LeftSideBarTabs[index].routes ?? []
   const marketRoutes: LeftSideBarTabType[] = activeMarkets.map(({ id, name }) => ({
@@ -106,9 +105,7 @@ async function getActiveMarkets(role: RolesTypes, token: string) {
     const spliceMarketsTab = () => {
       if (index !== -1) tabs.value.splice(index, 1)
     }
-    console.log(role)
     const response = await marketsStore.getAllActiveMarkets(token)
-    console.log(response)
 
     if (response instanceof Error) {
       spliceMarketsTab()
