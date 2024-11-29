@@ -56,9 +56,10 @@ const isHovered = useElementHover(leftSideBarRef, {
 
 // Роутер биржи
 onMounted(() => {
-  console.log(onMounted)
+  console.log('onMounted')
   const intervalId = setInterval(async () => {
     const currentUser = user.value
+    console.log(currentUser)
     if (currentUser?.role && currentUser.token) {
       clearInterval(intervalId)
       await getActiveMarkets(currentUser?.role, currentUser.token)
