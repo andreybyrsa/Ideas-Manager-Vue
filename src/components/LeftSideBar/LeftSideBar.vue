@@ -111,8 +111,7 @@ async function getActiveMarkets() {
       response.length === 0 &&
       user.value?.role !== 'ADMIN' &&
       user.value?.role !== 'PROJECT_OFFICE' &&
-      user.value?.role !== 'TEACHER' &&
-      user.value?.role !== 'MEMBER'
+      user.value?.role !== 'TEACHER'
     ) {
       spliceMarketsTab()
     } else if (index !== -1) {

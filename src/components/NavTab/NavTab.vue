@@ -81,7 +81,7 @@ function checkIsActiveRoute(to: string) {
       <div class="pt-2 rounded">
         <template
           v-for="route in routes"
-          :key="route.id"
+          :key="route.to"
         >
           <router-link
             v-if="checkUserRole(route.roles)"
