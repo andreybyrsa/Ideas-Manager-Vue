@@ -23,6 +23,7 @@ import useProjectStore from '@Store/projects/projectsStore'
 import { getUserRolesInfo } from '@Utils/userRolesInfo'
 import { Project } from '@Domain/Project'
 import { ACCESS_TOKEN_KEY } from '@Services/LoginService'
+import { curry } from 'lodash-es'
 
 const notificationsStore = useNotificationsStore()
 
@@ -55,6 +56,7 @@ const isHovered = useElementHover(leftSideBarRef, {
 
 // Роутер биржи
 onMounted(() => {
+  console.log(onMounted)
   const intervalId = setInterval(async () => {
     const currentUser = user.value
     if (currentUser?.role && currentUser.token) {
