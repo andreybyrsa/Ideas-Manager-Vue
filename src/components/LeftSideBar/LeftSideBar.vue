@@ -59,6 +59,7 @@ onMounted(getActiveMarkets)
 watch(
   () => markets.value,
   (newMarkets) => {
+    console.log('Доступные биржи:', newMarkets)
     if (newMarkets.length > 0) {
       const marketIndex = tabs.value.findIndex(({ name }) => name === 'markets')
       if (marketIndex !== -1) updateActiveMarketRoute(newMarkets, marketIndex)
@@ -70,6 +71,7 @@ watch(
 function updateActiveMarketRoute(activeMarkets: Market[], index: number) {
   const initialMarketRoutes: LeftSideBarTabType[] =
     LeftSideBarTabs[index].routes ?? []
+  console.log('Роль пользователя:', user.value?.role)
   const marketRoutes: LeftSideBarTabType[] = activeMarkets.map(({ id, name }) => ({
     name: `market-${id}`,
     text: name,
@@ -111,7 +113,8 @@ async function getActiveMarkets() {
       response.length === 0 &&
       user.value?.role !== 'ADMIN' &&
       user.value?.role !== 'PROJECT_OFFICE' &&
-      user.value?.role !== 'TEACHER'
+      user.value?.role !== 'TEACHER' &&
+      user.value?.role !== 'MEMBER'
     ) {
       spliceMarketsTab()
     } else if (index !== -1) {
@@ -249,6 +252,8 @@ function handleCloseNotificationModal() {
         v-for="(tab, index) in tabs"
         :key="index"
       >
+        <pre>{{ tab.routes }}</pre>
+
         <NavTab
           v-if="checkUserRole(tab)"
           :wrapper-class-name="isHovered ? 'left-side-bar__link w-100' : ''"
