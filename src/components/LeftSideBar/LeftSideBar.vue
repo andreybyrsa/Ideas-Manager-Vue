@@ -92,7 +92,8 @@ function updateActiveMarketRoute(activeMarkets: Market[], index: number) {
 
 async function getActiveMarkets() {
   const currentUser = user.value
-
+  console.log(currentUser?.role)
+  console.log(currentUser?.token)
   if (currentUser?.token && currentUser.role !== 'EXPERT') {
     const { token } = currentUser
     const index = tabs.value.findIndex(({ name }) => name === 'markets')
